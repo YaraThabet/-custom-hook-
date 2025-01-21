@@ -16,8 +16,8 @@ const AddForm = (props: IProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  
-  const { studentForm, errors, handleChange, handleSubmit, handleClear, handleCoursesChange } = useAddForm(props.onSubmit);
+  // const allStudent = { studentForm, errors, handleChange, handleSubmit, handleClear, handleCoursesChange } ;
+  const allStudent  = useAddForm( props.onSubmit);
 
 
   return (
@@ -31,8 +31,8 @@ const AddForm = (props: IProps) => {
         <input
           id="name"
           type="text"
-          value={studentForm.name}
-          onChange={e => handleChange('name', e.target.value)}
+          value={allStudent.studentForm.name}
+          onChange={e =>allStudent.handleChange('name', e.target.value)}
         />
       </div>
       <div className="input">
@@ -42,8 +42,8 @@ const AddForm = (props: IProps) => {
           type="number"
           min={17}
           max={40}
-          value={studentForm.age}
-          onChange={e => handleChange('age', e.target.value)}
+          value={allStudent.studentForm.age}
+          onChange={e => allStudent.handleChange('age', e.target.value)}
         />
       </div>
       <div className="input">
@@ -51,29 +51,29 @@ const AddForm = (props: IProps) => {
         <input
           id="isGraduated"
           type="checkbox"
-          checked={studentForm.isGraduated}
-          onChange={e => handleChange('isGraduated', e.target.checked)}
+          checked={allStudent.studentForm.isGraduated}
+          onChange={e => allStudent.handleChange('isGraduated', e.target.checked)}
         />
       </div>
       <div>
-        <CoursesListForm value={studentForm.coursesList} onSubmit={handleCoursesChange} />
+        <CoursesListForm value={allStudent.studentForm.coursesList} onSubmit={allStudent.handleCoursesChange} />
       </div>
       <div className="Actions">
         <button
-          onClick={handleSubmit}
-          style={{ color: errors.length ? 'red' : 'initial' }}
+          onClick={allStudent.handleSubmit}
+          style={{ color: allStudent.errors.length ? 'red' : 'initial' }}
         // disabled={errorsList.length > 0}
         >
           Submit
         </button>
-        <button onClick={handleClear}>Clear</button>
+        <button onClick={allStudent.handleClear}>Clear</button>
       </div>
       {
-        Boolean(errors.length) && (
+        Boolean(allStudent.errors.length) && (
           <div className='report'>
             <h4>You have the following error/s:</h4>
             {
-              errors.map(error => <p key={error}>- {error}</p>)
+              allStudent.errors.map(error => <p key={error}>- {error}</p>)
             }
           </div>
         )
